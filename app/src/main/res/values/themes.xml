@@ -1,0 +1,8 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.ArchiveCol" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/main_color</item>
+        <item name="android:colorSecondary">@color/Dark</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+</resources>
