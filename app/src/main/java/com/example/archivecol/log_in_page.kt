@@ -1,5 +1,6 @@
 package com.example.archivecol
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -12,6 +13,7 @@ import com.google.firebase.ktx.Firebase
 
 class log_in_page : AppCompatActivity() {
 
+    lateinit var loadingDialog: Dialog
     private lateinit var emailText: TextView
     private lateinit var passwordText: TextView
     private lateinit var log_in: Button
@@ -33,6 +35,23 @@ class log_in_page : AppCompatActivity() {
             startActivity(intent)
         }
 
+
+        fun showLoadingDialog() {
+            loadingDialog = Dialog(this)
+            loadingDialog.setContentView(R.layout.loading_dialog)
+            loadingDialog.setCancelable(false)
+
+            val textView = loadingDialog.findViewById<TextView>(R.id.loadingMessage)
+            textView.text = "Authenticating"
+
+            loadingDialog.show()
+        }
+
+        fun hideLoadingDialog() {
+            loadingDialog.dismiss()
+        }
+
+
         log_in.setOnClickListener {
             val email = emailText.text.toString()
             val password = passwordText.text.toString()
@@ -46,10 +65,11 @@ class log_in_page : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            showLoadingDialog()
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
+                    hideLoadingDialog()
                     if (task.isSuccessful) {
-                        val user = auth.currentUser
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                     } else {

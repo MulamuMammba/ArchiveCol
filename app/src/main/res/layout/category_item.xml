@@ -20,7 +20,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="90dp"
-            android:src="@drawable/ic_launcher_foreground"            />
+            android:src="@drawable/ic_launcher_foreground" />
 
         <TextView
             android:id="@+id/categoryName"
@@ -29,7 +29,15 @@
             android:hint="Name of category"
             android:textColor="@color/black"
             android:textSize="30sp"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/categoryGoal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="5" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

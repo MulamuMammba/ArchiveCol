@@ -1,65 +1,41 @@
 package com.example.archivecol
 
-import android.content.Context
+import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.widget.Button
-import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.FirebaseDatabase
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.archivecol.database.Category
+import com.example.archivecol.database.CategoryAdapter
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var categoryList: MutableList<Category>
+    lateinit var loadingDialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val addCategory = findViewById<Button>(R.id.addCategoryButton)
+        // Initialize the ObjectBox database
 
-        addCategory.setOnClickListener {
-            fun createCategory(categoryName: String, goalNumber: Int) {
-                val categoriesRef = FirebaseDatabase.getInstance()
-                    .getReferenceFromUrl("gs://archivecol.appspot.com")
-                val categoryId = categoriesRef.push().key
-                if (categoryId != null) {
-                    val category = hashMapOf("name" to categoryName, "goal" to goalNumber)
-                    categoriesRef.child(categoryId).setValue(category)
-                }
-            }
 
-            class CategoryInputDialog(context: Context) {
+        // Load categories from the database
 
-                private val dialogView = LayoutInflater.from(context).inflate(
-                    R.layout.category_input_dialog, null
-                )
-                private val categoryInput = dialogView.findViewById<EditText>(R.id.category_input)
-                private val goalInput = dialogView.findViewById<EditText>(R.id.goal_input)
 
-                private val dialog = AlertDialog.Builder(context)
-                    .setTitle("Create category")
-                    .setView(dialogView)
-                    .setPositiveButton("Create") { _, _ ->
-                        val categoryName = categoryInput.text.toString()
-                        val goalNumber = goalInput.text.toString().toIntOrNull() ?: 0
-                        if (categoryName.isNotEmpty()) {
-                            createCategory(categoryName, goalNumber)
-                        }
-                    }
-                    .setNegativeButton("Cancel", null)
-                    .create()
+        // Set up the RecyclerView
+        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        val adapter =
+            CategoryAdapter(categoryList) { category -> onCategoryItemClick(category as Category) }
+        recyclerView.adapter = adapter
+    }
 
-                private fun createCategory(categoryName: String, goalNumber: Int) {
-                    val categoriesRef = FirebaseDatabase.getInstance()
-                        .getReferenceFromUrl("gs://archivecol.appspot.com")
-                    val categoryId = categoriesRef.push().key
-                    if (categoryId != null) {
-                        val category = hashMapOf("name" to categoryName, "goal" to goalNumber)
-                        categoriesRef.child(categoryId).setValue(category)
-                    }
-                }
-            }
-
-        }
+    private fun onCategoryItemClick(category: Category) {
+        val intent = Intent(this@MainActivity, CategoryView::class.java)
+        intent.putExtra("category_id", category.id)
+        startActivity(intent)
     }
 }

@@ -1,0 +1,39 @@
+{
+  "entities": {
+    "Category": {
+      "id": {
+        "type": "long",
+        "id": true
+      },
+      "name": {
+        "type": "string"
+      }
+    },
+    "Item": {
+      "id": {
+        "type": "long",
+        "id": true,
+        "assignable": true
+      },
+      "categoryId": {
+        "type": "long"
+      },
+      "name": {
+        "type": "string"
+      },
+      "comment": {
+        "type": "string"
+      },
+      "count": {
+        "type": "int"
+      },
+      "imageUrl": {
+        "type": "string",
+        "indexed": true
+      },
+      "isCollected": {
+        "type": "boolean"
+      }
+    }
+  }
+}

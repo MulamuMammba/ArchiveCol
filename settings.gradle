@@ -3,6 +3,10 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+        // Add ObjectBox plugin repository
+        maven {
+            url "https://objectbox.io/download/"
+        }
     }
 }
 dependencyResolutionManagement {

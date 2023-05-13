@@ -9,8 +9,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
 
 class ItemInputDialog(context: Context) {
 
@@ -60,24 +58,12 @@ class ItemInputDialog(context: Context) {
     }
 
     private fun addItem(categoryName: String, description: String, acquisitionDate: String) {
-        val itemsRef = FirebaseDatabase.getInstance().getReference("items")
-        val newItemRef = itemsRef.push()
-        val item = Item(categoryName, description, acquisitionDate, newItemRef.key!!)
-        newItemRef.setValue(item).addOnSuccessListener {
-            Toast.makeText(dialogView.context, "Item added successfully", Toast.LENGTH_SHORT).show()
-        }.addOnFailureListener {
-            Toast.makeText(dialogView.context, "Failed to add item", Toast.LENGTH_SHORT).show()
-        }
+
+
     }
 
     private fun uploadPhoto(itemId: String) {
-        val storageRef = FirebaseStorage.getInstance().getReference("items/$itemId")
-        val photoRef = storageRef.child(photoUri.lastPathSegment ?: "item-photo")
-        photoRef.putFile(photoUri).addOnSuccessListener {
-            Toast.makeText(dialogView.context, "Photo uploaded successfully", Toast.LENGTH_SHORT).show()
-        }.addOnFailureListener {
-            Toast.makeText(dialogView.context, "Failed to upload photo", Toast.LENGTH_SHORT).show()
-        }
+
     }
 
     companion object {
