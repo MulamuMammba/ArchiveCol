@@ -10,7 +10,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
-        android:background="@drawable/rounded"
+        android:background="@color/tertiary_color"
         tools:ignore="UselessParent">
 
         <ProgressBar
@@ -22,7 +22,7 @@
 
         <TextView
             android:id="@+id/loadingMessage"
-            android:hint="loading"
+            android:hint="Loading..."
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/loadingIcon"

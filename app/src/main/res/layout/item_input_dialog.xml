@@ -1,67 +1,93 @@
-<!-- item_input_dialog.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:padding="16dp"
-    android:background="@drawable/gradient_background">
+    android:background="@drawable/alert_background">
 
     <TextView
-        android:text="Enter category name:"
+        android:text="Enter Item name:"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"/>
+        android:textColor="@android:color/black" />
 
     <EditText
-        android:id="@+id/category_input"
+        android:id="@+id/item_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="   Category name"
-        android:background="@drawable/rounded"
-        android:inputType="text"/>
+        android:hint="   Item name"
+        android:background="@drawable/rounded_text_input"
+        android:inputType="text" />
 
     <TextView
-        android:text="Enter item description:"
+        android:text="Enter item comment:"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:textColor="@color/white"/>
+        android:textColor="@android:color/black" />
 
     <EditText
-        android:id="@+id/description_input"
+        android:id="@+id/comment_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="   Item description"
         android:inputType="text"
-        android:background="@drawable/rounded"/>
+        android:background="@drawable/rounded_text_input" />
+
+    <TextView
+        android:text="Enter number of needed items:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="@android:color/black" />
+
+    <EditText
+        android:id="@+id/count_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="   Number of items"
+        android:inputType="number"
+        android:background="@drawable/rounded_text_input" />
 
     <TextView
         android:text="Enter acquisition date:"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:textColor="@color/white"/>
+        android:textColor="@android:color/black" />
 
     <EditText
         android:id="@+id/date_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="   Acquisition date"
-        android:inputType="text"
-        android:background="@drawable/rounded"/>
+        android:inputType="date"
+        android:background="@drawable/rounded_text_input" />
 
     <TextView
         android:text="Upload a photograph:"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:textColor="@color/white"/>
+        android:textColor="@android:color/black" />
 
     <Button
-        android:id="@+id/photo_button"
+        android:id="@+id/imageButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Choose photo"
-        android:background="@drawable/rounded"/>
+        android:text="Choose Photo"
+        android:textColor="@android:color/black"
+        android:background="@drawable/rounded" />
+
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="259dp"
+        android:layout_height="wrap_content"
+        android:onClick="addItems"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/rounded_button"
+        android:text="Add"
+        android:textColor="@color/tertiary_color" />
 
 </LinearLayout>

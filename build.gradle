@@ -1,9 +1,6 @@
 buildscript {
     dependencies {
         classpath 'com.google.gms:google-services:4.3.15'
-        classpath 'com.android.tools.build:gradle:7.0.4'
-        // Add ObjectBox plugin dependency
-        classpath "io.objectbox:objectbox-gradle-plugin:3.5.1"
     }
 
     repositories {
@@ -34,9 +31,3 @@ subprojects {
         }
     }
 }
-
-
-
-
-
-

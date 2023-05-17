@@ -16,9 +16,9 @@ class ItemInputDialog(context: Context) {
         R.layout.item_input_dialog, null
     )
     private val categoryInput = dialogView.findViewById<EditText>(R.id.category_input)
-    private val descriptionInput = dialogView.findViewById<EditText>(R.id.description_input)
+    private val descriptionInput = dialogView.findViewById<EditText>(R.id.comment_input)
     private val dateInput = dialogView.findViewById<EditText>(R.id.date_input)
-    private val photoButton = dialogView.findViewById<Button>(R.id.photo_button)
+    private val photoButton = dialogView.findViewById<Button>(R.id.imageButton)
 
     private val dialog = AlertDialog.Builder(context)
         .setTitle("Add item")

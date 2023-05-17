@@ -40,7 +40,11 @@ class CategoryAdapter(private val categories: List<Category>, param: (Any) -> Un
 
     private fun onCategoryItemClick(context: Context, category: Category) {
         val intent = Intent(context, CategoryView::class.java)
+
+        // Pass list of items, category id and category name to CategoryView activity
         intent.putExtra("category_id", category.id)
+        intent.putExtra("category_name", category.name)
+
         context.startActivity(intent)
     }
 

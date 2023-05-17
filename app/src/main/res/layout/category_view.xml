@@ -4,18 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@color/tertiary_color"
     tools:context=".CategoryView">
+
+
+    <Button
+        android:id="@+id/addItems"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="576dp"
+        android:background="@drawable/rounded_button"
+        android:text="Add items"
+        android:textColor="@color/tertiary_color"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/categoryTitle"
-        android:layout_width="wrap_content"
+        style="@android:style/Widget.TextView.PopupMenu"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="67dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp"
+        android:background="@drawable/rounded_text_input"
+        android:gravity="center"
+        android:onClick="openEditDialog"
         android:hint="Category Title"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView2"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:fontFamily="monospace"
+        app:layout_constraintBottom_toTopOf="@+id/itemsView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,11 +44,11 @@
         tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView2"
+        android:id="@+id/itemsView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="90dp"
         android:layout_marginEnd="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

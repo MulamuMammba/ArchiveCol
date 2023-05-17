@@ -13,28 +13,29 @@ import com.google.firebase.ktx.Firebase
 
 class log_in_page : AppCompatActivity() {
 
-    lateinit var loadingDialog: Dialog
-    private lateinit var emailText: TextView
-    private lateinit var passwordText: TextView
-    private lateinit var log_in: Button
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.log_in_page)
 
+        lateinit var loadingDialog: Dialog
+
         title = "Log in"
         val auth = Firebase.auth
 
-        emailText = findViewById(R.id.email)
-        passwordText = findViewById(R.id.password)
-        log_in = findViewById(R.id.sign_in_btn)
+        val emailText: TextView = findViewById(R.id.email)
+        val passwordText: TextView = findViewById(R.id.password)
+        val log_in: Button = findViewById(R.id.sign_in_btn)
+        val forgot_password: TextView = findViewById(R.id.reset_password_btn)
+        val signUp: TextView = findViewById(R.id.sign_up_btn)
 
-        val signUp = findViewById<TextView>(R.id.sign_up_btn)
+        forgot_password.setOnClickListener {
+            val intent = Intent(this, forgot_password::class.java)
+            startActivity(intent)
+        }
         signUp.setOnClickListener {
             val intent = Intent(this, sign_up_page::class.java)
             startActivity(intent)
         }
-
 
         fun showLoadingDialog() {
             loadingDialog = Dialog(this)
@@ -51,7 +52,6 @@ class log_in_page : AppCompatActivity() {
             loadingDialog.dismiss()
         }
 
-
         log_in.setOnClickListener {
             val email = emailText.text.toString()
             val password = passwordText.text.toString()
@@ -66,21 +66,21 @@ class log_in_page : AppCompatActivity() {
             }
 
             showLoadingDialog()
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    hideLoadingDialog()
-                    if (task.isSuccessful) {
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Toast.makeText(
-                            baseContext,
-                            "Authentication failed.",
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                    }
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
+                hideLoadingDialog()
+                if (task.isSuccessful) {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    this.finish()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(
+                        baseContext,
+                        "Authentication failed.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
                 }
+            }
         }
     }
 }

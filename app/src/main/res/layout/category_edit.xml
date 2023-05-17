@@ -1,4 +1,4 @@
-<!-- category_input_dialog.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -8,6 +8,20 @@
     android:paddingTop="20dp"
     android:paddingEnd="15dp"
     app:circularflow_radiusInDP="10dp">
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/rounded_button_red"
+        android:text="Delete"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/confirm_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_goal_number" />
 
     <TextView
         android:id="@+id/title_text"
@@ -23,7 +37,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/category_input"
+        android:id="@+id/new_category_name"
         android:layout_width="0dp"
         android:layout_height="33dp"
         android:layout_marginTop="22dp"
@@ -48,10 +62,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/category_input" />
+        app:layout_constraintTop_toBottomOf="@+id/new_category_name" />
 
     <EditText
-        android:id="@+id/goal_input"
+        android:id="@+id/new_goal_number"
         android:layout_width="0dp"
         android:layout_height="33dp"
         android:layout_marginTop="22dp"
@@ -64,34 +78,17 @@
         app:layout_constraintTop_toBottomOf="@+id/goal_text" />
 
     <Button
-        android:id="@+id/cancel_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/confirm_button"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginBottom="76dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/rounded_button"
-        android:text="Cancel"
-        android:textColor="@color/tertiary_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/add_button"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/goal_input" />
-
-    <Button
-        android:id="@+id/add_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="76dp"
-        android:background="@drawable/rounded_button"
-        android:text="Add"
+        android:text="Confirm"
         android:textColor="@color/tertiary_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/cancel_button"
-        app:layout_constraintTop_toBottomOf="@+id/goal_input" />
+        app:layout_constraintTop_toBottomOf="@+id/new_goal_number" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

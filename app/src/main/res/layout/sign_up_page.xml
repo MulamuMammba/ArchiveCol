@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="@color/tertiary_color"
     tools:context=".sign_up_page">
 
     <EditText
@@ -16,7 +16,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="25dp"
         android:autofillHints=""
-        android:background="@drawable/rounded"
+        android:background="@drawable/rounded_text_input"
         android:drawablePadding="10dp"
         android:drawableTint="@color/Dark"
         android:ems="10"
@@ -38,7 +38,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="25dp"
         android:autofillHints=""
-        android:background="@drawable/rounded"
+        android:background="@drawable/rounded_text_input"
         android:drawablePadding="10dp"
         android:drawableTint="@color/Dark"
         android:ems="10"
@@ -60,7 +60,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="25dp"
         android:autofillHints=""
-        android:background="@drawable/rounded"
+        android:background="@drawable/rounded_text_input"
         android:drawablePadding="10dp"
         android:drawableTint="@color/Dark"
         android:ems="10"
@@ -82,7 +82,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="25dp"
         android:autofillHints=""
-        android:background="@drawable/rounded"
+        android:background="@drawable/rounded_text_input"
         android:drawablePadding="10dp"
         android:drawableTint="@color/Dark"
         android:ems="10"
@@ -98,12 +98,12 @@
 
     <Button
         android:id="@+id/sign_up_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginBottom="206dp"
         android:background="@drawable/rounded"
         android:text="Sign Up"
-        android:textColor="@color/black"
+        android:textColor="@color/tertiary_color"
         android:textColorHighlight="#00FFFFFF"
         android:textColorLink="#00FFFFFF"
         android:textSize="24sp"
@@ -130,7 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:text="@string/account"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/log_in_btn"
@@ -139,7 +139,7 @@
             android:layout_weight="0"
             android:autoLink="web"
             android:text="Log In"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
