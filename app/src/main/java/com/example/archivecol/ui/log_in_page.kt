@@ -9,7 +9,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.archivecol.R
+import com.example.archivecol.database.Category
+import com.example.archivecol.database.DatabaseHelper
+import com.example.archivecol.database.Item
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 
 class log_in_page : AppCompatActivity() {
@@ -17,6 +21,8 @@ class log_in_page : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.log_in_page)
+
+        dumpToFirebase()
 
         lateinit var loadingDialog: Dialog
 
@@ -83,5 +89,28 @@ class log_in_page : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun dumpToFirebase(){
+        // Assuming you have retrieved the data from SQLite tables
+        val db = DatabaseHelper(this)
+        val categories: List<Category> = db.getAllCategories()
+        val items: List<Item> = db.getAllItems()
+
+        // Get reference to Firebase Realtime Database
+        val databaseReference = FirebaseDatabase.getInstance().reference
+
+        // Write categories to Firebase
+        for (category in categories) {
+            val categoryRef = databaseReference.child("categories").child(category.id.toString())
+            categoryRef.setValue(category)
+        }
+
+        // Write items to Firebase
+        for (item in items) {
+            val itemRef = databaseReference.child("items").child(item.id.toString())
+            itemRef.setValue(item)
+        }
+
     }
 }

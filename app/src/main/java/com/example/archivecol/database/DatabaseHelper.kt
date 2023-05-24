@@ -65,6 +65,76 @@ class DatabaseHelper(context: Context) :
         return id
     }
 
+    @SuppressLint("Range")
+    fun getAllCategories(): List<Category> {
+        val categories = ArrayList<Category>()
+
+        // SQL query to retrieve all categories
+        val selectQuery = "SELECT * FROM $TABLE_CATEGORIES"
+
+        // Get a readable database
+        val db = this.readableDatabase
+
+        // Execute the query
+        val cursor = db.rawQuery(selectQuery, null)
+
+        // Loop through the cursor and add categories to the list
+        if (cursor.moveToFirst()) {
+            do {
+                val category = Category(
+                    id = cursor.getInt(cursor.getColumnIndex(COLUMN_CATEGORY_ID)),
+                    name = cursor.getString(cursor.getColumnIndex(COLUMN_CATEGORY_NAME)),
+                    goal = cursor.getInt(cursor.getColumnIndex(COLUMN_CATEGORY_GOAL))
+                )
+                categories.add(category)
+            } while (cursor.moveToNext())
+        }
+
+        // Close the cursor and database
+        cursor.close()
+        db.close()
+
+        // Return the list of categories
+        return categories
+    }
+
+    @SuppressLint("Range")
+    fun getAllItems(): List<Item> {
+        val items = ArrayList<Item>()
+
+        // SQL query to retrieve all items
+        val selectQuery = "SELECT * FROM $TABLE_ITEMS"
+
+        // Get a readable database
+        val db = this.readableDatabase
+
+        // Execute the query
+        val cursor = db.rawQuery(selectQuery, null)
+
+        // Loop through the cursor and add items to the list
+        if (cursor.moveToFirst()) {
+            do {
+                val item = Item(
+                    id = cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_ID)),
+                    categoryId = cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_CATEGORY_ID)),
+                    name = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)),
+                    description = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_DESCRIPTION)),
+                    count = cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_COUNT)),
+                    photoPath = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_PHOTO_PATH)),
+                    isCollected = cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_IS_COLLECTED)) == 1
+                )
+                items.add(item)
+            } while (cursor.moveToNext())
+        }
+
+        // Close the cursor and database
+        cursor.close()
+        db.close()
+
+        // Return the list of items
+        return items
+    }
+
     fun addItem(item: Item): Boolean {
         val db = this.writableDatabase
 
