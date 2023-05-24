@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.forgot_password"
+            android:name=".ui.Forgot_password"
             android:exported="true" />
         <activity
             android:name=".ui.sign_up_page"

@@ -23,7 +23,7 @@ class sign_up_page : AppCompatActivity() {
         title = "Sign Up"
 
         // Initialize the views
-        emailText = findViewById<TextView>(R.id.email)
+        emailText = findViewById<TextView>(R.id.email_reset)
         passwordText = findViewById<TextView>(R.id.password)
         signUpButton = findViewById<Button>(R.id.sign_up_btn)
 
