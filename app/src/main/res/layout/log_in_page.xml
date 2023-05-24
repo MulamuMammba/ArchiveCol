@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".log_in_page"
+    tools:context=".ui.log_in_page"
     android:background="@color/tertiary_color">
 
     <androidx.constraintlayout.widget.Guideline

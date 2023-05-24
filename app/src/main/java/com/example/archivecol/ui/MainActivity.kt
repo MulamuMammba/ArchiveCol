@@ -1,4 +1,4 @@
-package com.example.archivecol
+package com.example.archivecol.ui
 
 import android.app.AlertDialog
 import android.content.Intent
@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.archivecol.CategoryView
+import com.example.archivecol.R
 import com.example.archivecol.database.Category
 import com.example.archivecol.database.CategoryAdapter
 import com.example.archivecol.database.DatabaseHelper

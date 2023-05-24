@@ -25,7 +25,7 @@
             android:name=".CategoryView"
             android:exported="true" />
         <activity
-            android:name=".log_in_page"
+            android:name=".ui.log_in_page"
             android:exported="true"
             android:theme="@style/Theme.ArchiveCol">
             <intent-filter>
@@ -35,13 +35,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".forgot_password"
+            android:name=".ui.forgot_password"
             android:exported="true" />
         <activity
-            android:name=".sign_up_page"
+            android:name=".ui.sign_up_page"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true" />
     </application>
 

@@ -24,6 +24,7 @@ import com.example.archivecol.database.Category
 import com.example.archivecol.database.DatabaseHelper
 import com.example.archivecol.database.Item
 import com.example.archivecol.database.ItemAdapter
+import com.example.archivecol.ui.MainActivity
 
 class CategoryView : AppCompatActivity() {
 
