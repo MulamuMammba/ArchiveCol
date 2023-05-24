@@ -1,4 +1,4 @@
-package com.example.archivecol
+package com.example.archivecol.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.archivecol.R
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
