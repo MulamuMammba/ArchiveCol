@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/tertiary_color"
-    tools:context=".sign_up_page">
+    tools:context=".ui.sign_up_page">
 
     <EditText
         android:id="@+id/email"
