@@ -23,14 +23,14 @@ class log_in_page : AppCompatActivity() {
         title = "Log in"
         val auth = Firebase.auth
 
-        val emailText: TextView = findViewById(R.id.email)
+        val emailText: TextView = findViewById(R.id.email_reset)
         val passwordText: TextView = findViewById(R.id.password)
         val log_in: Button = findViewById(R.id.sign_in_btn)
         val forgot_password: TextView = findViewById(R.id.reset_password_btn)
         val signUp: TextView = findViewById(R.id.sign_up_btn)
 
         forgot_password.setOnClickListener {
-            val intent = Intent(this, forgot_password::class.java)
+            val intent = Intent(this, Forgot_password::class.java)
             startActivity(intent)
         }
         signUp.setOnClickListener {

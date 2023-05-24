@@ -2,6 +2,7 @@
 
 ArchiveCol is an Android app designed for managing collections. It allows users to log in, create categories for their collectables, set goals for each category, add new items to their collection, and view a list of all items. The app also enables users to take and store photographs of each item. It features a visual representation of progress towards goals and includes an achievement system.
 
+developed by valerie
 ## Features
 
 - 🚀 User authentication: Users can log in to the app using a username and password.
