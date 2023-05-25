@@ -9,7 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.archivecol.R
-import com.example.archivecol.database.User
+import com.example.archivecol.model.User
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -21,7 +21,7 @@ class SignUpPage : AppCompatActivity() {
         title = "Sign Up"
 
         // Initialize the views
-        val emailText: EditText = findViewById(R.id.email)
+        val emailText: EditText = findViewById(R.id.email_reset)
         val passwordText: EditText = findViewById(R.id.password)
         val signUpButton: Button = findViewById(R.id.sign_up_btn)
         val firstName: EditText = findViewById(R.id.first_name)

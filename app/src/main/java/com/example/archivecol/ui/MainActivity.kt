@@ -11,11 +11,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.archivecol.CategoryView
 import com.example.archivecol.R
-import com.example.archivecol.database.Category
-import com.example.archivecol.database.CategoryAdapter
-import com.example.archivecol.database.DatabaseHelper
+import com.example.archivecol.model.Category
+import com.example.archivecol.database.adapters.CategoryAdapter
+import com.example.archivecol.database.sqlite.DatabaseHelper
 import com.example.archivecol.database.firebase.FirebaseSync
 
 class MainActivity : AppCompatActivity() {
@@ -28,40 +27,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Get categories from the database
-
         val dbHelper = DatabaseHelper(this)
-        val db = dbHelper.readableDatabase
-        val projection = arrayOf(
-            DatabaseHelper.COLUMN_CATEGORY_ID,
-            DatabaseHelper.COLUMN_CATEGORY_NAME,
-            DatabaseHelper.COLUMN_CATEGORY_GOAL
-        )
-        val cursor =
-            db.query(DatabaseHelper.TABLE_CATEGORIES, projection, null, null, null, null, null)
-        while (cursor.moveToNext()) {
-            val id = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_CATEGORY_ID))
-            val name =
-                cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_CATEGORY_NAME))
-            val goal =
-                cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseHelper.COLUMN_CATEGORY_GOAL))
-            categoryList.add(Category(id, name, goal))
-        }
-        cursor.close()
-        db.close()
+        categoryList = dbHelper.getAllCategories() as MutableList<Category>
 
         // Set up the RecyclerView
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter =
-            CategoryAdapter(categoryList) { category -> onCategoryItemClick(category as Category) }
+        val adapter = CategoryAdapter(categoryList) { category -> onCategoryItemClick(category as Category) }
         recyclerView.adapter = adapter
 
     }
 
     private fun refreshView() {
-        val adapter =
-            CategoryAdapter(categoryList) { category -> onCategoryItemClick(category as Category) }
-
+        val adapter = CategoryAdapter(categoryList) { category -> onCategoryItemClick(category as Category) }
         recyclerView.adapter = adapter
     }
 
@@ -83,17 +61,6 @@ class MainActivity : AppCompatActivity() {
             val name = categoryName.text.toString().trim()
             val goal = categoryGoal.text.toString().trim()
 
-            try {
-                goalNum = goal.toInt()
-            } catch (e: NumberFormatException) {
-                // Handle the case when the input is not an integer
-                Toast.makeText(
-                    view.context,
-                    "$goal is not a number",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
             if (name.isNotEmpty() && goal.isNotEmpty()) {
                 val dbHelper = DatabaseHelper(this)
                 val category = Category(categoryList.size + 1, name, goalNum)
@@ -110,6 +77,18 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(view.context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             }
+
+            try {
+                goalNum = goal.toInt()
+            } catch (e: NumberFormatException) {
+                // Handle the case when the input is not an integer
+                Toast.makeText(
+                    view.context,
+                    "$goal is not a number",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
         }
 
         cancelButton.setOnClickListener {

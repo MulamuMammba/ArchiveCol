@@ -1,4 +1,4 @@
-package com.example.archivecol.database
+package com.example.archivecol.model
 
 import android.content.Context
 import com.example.archivecol.ui.SignUpPage

@@ -1,8 +1,8 @@
 package com.example.archivecol.database.firebase
 
-import com.example.archivecol.database.Category
-import com.example.archivecol.database.DatabaseHelper
-import com.example.archivecol.database.Item
+import com.example.archivecol.model.Category
+import com.example.archivecol.database.sqlite.DatabaseHelper
+import com.example.archivecol.model.Item
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
