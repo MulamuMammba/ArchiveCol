@@ -1,6 +1,5 @@
 package com.example.archivecol.ui
 
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
@@ -10,30 +9,29 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.archivecol.R
-import com.example.archivecol.database.DatabaseHelper
-import com.example.archivecol.database.User
+import com.example.archivecol.database.sqlite.DatabaseHelper
+import com.example.archivecol.model.User
 import com.example.archivecol.database.firebase.FirebaseSync
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class LogInPage : AppCompatActivity() {
 
+    private lateinit var loadingDialog: Dialog
+    private val emailText: TextView = findViewById(R.id.email)
+    private val passwordText: TextView = findViewById(R.id.password)
+    private val logIn: Button = findViewById(R.id.sign_in_btn)
+    private val forgotPassword: TextView = findViewById(R.id.reset_password_btn)
+    private val signUp: TextView = findViewById(R.id.sign_up_btn)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.log_in_page)
 
-        lateinit var loadingDialog: Dialog
-
-        val auth = Firebase.auth
-        FirebaseSync.refreshDatabase(DatabaseHelper(this))
-
-        val emailText: TextView = findViewById(R.id.email)
-        val passwordText: TextView = findViewById(R.id.password)
-        val logIn: Button = findViewById(R.id.sign_in_btn)
-        val forgotPassword: TextView = findViewById(R.id.reset_password_btn)
-        val signUp: TextView = findViewById(R.id.sign_up_btn)
         val userName: TextView = findViewById(R.id.name)
         userName.text = User.getUserName(applicationContext)
+
+        login()
 
         forgotPassword.setOnClickListener {
             val intent = Intent(this, forgotPassword::class.java)
@@ -44,21 +42,12 @@ class LogInPage : AppCompatActivity() {
             startActivity(intent)
         }
 
-        @SuppressLint("SetTextI18n")
-        fun showLoadingDialog() {
-            loadingDialog = Dialog(this)
-            loadingDialog.setContentView(R.layout.loading_dialog)
-            loadingDialog.setCancelable(false)
+    }
 
-            val textView = loadingDialog.findViewById<TextView>(R.id.loadingMessage)
-            textView.text = "Authenticating"
+    private fun login() {
 
-            loadingDialog.show()
-        }
-
-        fun hideLoadingDialog() {
-            loadingDialog.dismiss()
-        }
+        val auth = Firebase.auth
+        FirebaseSync.refreshDatabase(DatabaseHelper(this))
 
         logIn.setOnClickListener {
             val email = emailText.text.toString()
@@ -72,7 +61,6 @@ class LogInPage : AppCompatActivity() {
                 Toast.makeText(this, "Enter password", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
             showLoadingDialog()
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
                 hideLoadingDialog()
@@ -90,5 +78,20 @@ class LogInPage : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun showLoadingDialog() {
+        loadingDialog = Dialog(this)
+        loadingDialog.setContentView(R.layout.loading_dialog)
+        loadingDialog.setCancelable(false)
+
+        val textView = loadingDialog.findViewById<TextView>(R.id.loadingMessage)
+        textView.text = "Authenticating"
+
+        loadingDialog.show()
+    }
+
+    private fun hideLoadingDialog() {
+        loadingDialog.dismiss()
     }
 }

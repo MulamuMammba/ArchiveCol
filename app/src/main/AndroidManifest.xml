@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission
-        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        android:minSdkVersion="30" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" android:minSdkVersion="30" />
 
     <application
         android:allowBackup="true"
@@ -19,10 +17,10 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".ItemEdit"
+            android:name=".dialogs.ItemEdit"
             android:exported="false" />
         <activity
-            android:name=".CategoryView"
+            android:name=".ui.CategoryView"
             android:exported="true" />
         <activity
             android:name=".ui.LogInPage"
@@ -35,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.Forgot_password"
+            android:name=".ui.ForgotPassword"
             android:exported="true" />
         <activity
             android:name=".ui.SignUpPage"

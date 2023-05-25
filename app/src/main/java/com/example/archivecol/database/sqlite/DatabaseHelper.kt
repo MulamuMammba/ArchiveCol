@@ -1,10 +1,12 @@
-package com.example.archivecol.database
+package com.example.archivecol.database.sqlite
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.archivecol.model.Category
+import com.example.archivecol.model.Item
 
 class DatabaseHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -88,37 +90,6 @@ class DatabaseHelper(context: Context) :
         db.close()
 
         return categories
-    }
-
-    @SuppressLint("Range")
-    fun getAllItems(): List<Item> {
-        val items = ArrayList<Item>()
-
-        val selectQuery = "SELECT * FROM $TABLE_ITEMS"
-
-        val db = this.readableDatabase
-
-        val cursor = db.rawQuery(selectQuery, null)
-
-        if (cursor.moveToFirst()) {
-            do {
-                val item = Item(
-                    id = cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_ID)),
-                    categoryId = cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_CATEGORY_ID)),
-                    name = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)),
-                    description = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_DESCRIPTION)),
-                    count = cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_COUNT)),
-                    photoPath = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_PHOTO_PATH)),
-                    isCollected = cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_IS_COLLECTED)) == 1
-                )
-                items.add(item)
-            } while (cursor.moveToNext())
-        }
-
-        cursor.close()
-        db.close()
-
-        return items
     }
 
     fun addItem(item: Item): Boolean {

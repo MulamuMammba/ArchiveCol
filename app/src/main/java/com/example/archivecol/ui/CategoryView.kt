@@ -1,4 +1,4 @@
-package com.example.archivecol
+package com.example.archivecol.ui
 
 import android.Manifest
 import android.app.AlertDialog
@@ -20,12 +20,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.archivecol.database.Category
-import com.example.archivecol.database.DatabaseHelper
-import com.example.archivecol.database.Item
-import com.example.archivecol.database.ItemAdapter
+import com.example.archivecol.R
+import com.example.archivecol.model.Category
+import com.example.archivecol.database.sqlite.DatabaseHelper
+import com.example.archivecol.model.Item
+import com.example.archivecol.database.adapters.ItemAdapter
 import com.example.archivecol.database.firebase.FirebaseSync
-import com.example.archivecol.ui.MainActivity
 
 class CategoryView : AppCompatActivity() {
 
@@ -42,8 +42,7 @@ class CategoryView : AppCompatActivity() {
         Manifest.permission.READ_EXTERNAL_STORAGE
     )
 
-    private val pickImageLauncher =
-        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             // Process the selected image URI here
             uri?.let {
                 imageUrl = it.toString()
@@ -86,7 +85,7 @@ class CategoryView : AppCompatActivity() {
         }
     }
 
-    fun refreshView() {
+    private fun refreshView() {
         itemAdapter = ItemAdapter(this, itemsList)
         recyclerView.adapter = itemAdapter
     }
@@ -207,27 +206,12 @@ class CategoryView : AppCompatActivity() {
                 val item =
                     Item(id, categoryId, itemName, itemComment, itemCount.toInt(), url, false)
                 itemsList.add(item)
-                val isItemAdded = dbHelper.addItem(item)
+
                 FirebaseSync.addItem(item)
+                FirebaseSync.refreshDatabase(dbHelper)
                 refreshView()
+                Toast.makeText(view.context, "Successfully added ${item.name}", Toast.LENGTH_SHORT).show()
 
-                if (isItemAdded) {
-                    Log.d("Database", "Item added successfully: ${item.name}")
-                    Toast.makeText(
-                        view.context,
-                        "Successfully added ${item.name}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    Log.d("Database", "Failed to add item: ${item.name}")
-                    Toast.makeText(view.context, "Failed to add item", Toast.LENGTH_SHORT).show()
-                }
-
-                Toast.makeText(view.context, "Successfully added ${item.name}", Toast.LENGTH_SHORT)
-                    .show()
-                alertDialog.dismiss()
-            } else {
-                Toast.makeText(view.context, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             }
         }
         alertDialog.show()

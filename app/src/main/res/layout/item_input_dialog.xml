@@ -15,9 +15,10 @@
         android:id="@+id/item_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="   Item name"
         android:background="@drawable/rounded_text_input"
-        android:inputType="text" />
+        android:hint="   Item name"
+        android:inputType="text"
+        android:textAlignment="center" />
 
     <TextView
         android:text="Enter item comment:"
@@ -30,9 +31,10 @@
         android:id="@+id/comment_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_text_input"
         android:hint="   Item description"
         android:inputType="text"
-        android:background="@drawable/rounded_text_input" />
+        android:textAlignment="center" />
 
     <TextView
         android:text="Enter number of needed items:"
@@ -45,9 +47,10 @@
         android:id="@+id/count_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_text_input"
         android:hint="   Number of items"
         android:inputType="number"
-        android:background="@drawable/rounded_text_input" />
+        android:textAlignment="center" />
 
     <TextView
         android:text="Enter acquisition date:"
@@ -60,9 +63,10 @@
         android:id="@+id/date_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_text_input"
         android:hint="   Acquisition date"
         android:inputType="date"
-        android:background="@drawable/rounded_text_input" />
+        android:textAlignment="center" />
 
     <TextView
         android:text="Upload a photograph:"

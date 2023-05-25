@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.archivecol.R
 import com.google.firebase.auth.FirebaseAuth
 
-class Forgot_password : AppCompatActivity() {
+class ForgotPassword : AppCompatActivity() {
 
     private val auth = FirebaseAuth.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +21,7 @@ class Forgot_password : AppCompatActivity() {
         val button =findViewById<Button>(R.id.reset_password_btn)
 
         button.setOnClickListener{
-            val email = emailEditText.text.toString()
+            val email = emailEditText.text.toString().trim()
             if(email.isNotEmpty()){
                 sendEmail(email)
             }else{
@@ -30,7 +30,7 @@ class Forgot_password : AppCompatActivity() {
         }
 
     }
-    fun sendEmail(email : String){
+    private fun sendEmail(email : String){
 
         auth.sendPasswordResetEmail(email)
             .addOnCompleteListener { task ->
