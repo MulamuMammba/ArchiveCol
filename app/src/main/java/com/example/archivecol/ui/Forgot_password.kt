@@ -23,7 +23,7 @@ class forgot_password : AppCompatActivity() {
                     // Password reset email sent successfully
                     Toast.makeText(this, "Password reset email sent", Toast.LENGTH_SHORT).show()
                     // Navigate back to login page
-                    val intent = Intent(this, log_in_page::class.java)
+                    val intent = Intent(this, LogInPage::class.java)
                     startActivity(intent)
                     finish()
                 } else {

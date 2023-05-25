@@ -1,5 +1,6 @@
 package com.example.archivecol.ui
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
@@ -9,41 +10,41 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.archivecol.R
-import com.example.archivecol.database.Category
 import com.example.archivecol.database.DatabaseHelper
-import com.example.archivecol.database.Item
+import com.example.archivecol.database.User
+import com.example.archivecol.database.firebase.FirebaseSync
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 
-class log_in_page : AppCompatActivity() {
+class LogInPage : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.log_in_page)
 
-        dumpToFirebase()
-
         lateinit var loadingDialog: Dialog
 
-        title = "Log in"
         val auth = Firebase.auth
+        FirebaseSync.refreshDatabase(DatabaseHelper(this))
 
         val emailText: TextView = findViewById(R.id.email)
         val passwordText: TextView = findViewById(R.id.password)
-        val log_in: Button = findViewById(R.id.sign_in_btn)
-        val forgot_password: TextView = findViewById(R.id.reset_password_btn)
+        val logIn: Button = findViewById(R.id.sign_in_btn)
+        val forgotPassword: TextView = findViewById(R.id.reset_password_btn)
         val signUp: TextView = findViewById(R.id.sign_up_btn)
+        val userName: TextView = findViewById(R.id.name)
+        userName.text = User.getUserName(applicationContext)
 
-        forgot_password.setOnClickListener {
-            val intent = Intent(this, forgot_password::class.java)
+        forgotPassword.setOnClickListener {
+            val intent = Intent(this, forgotPassword::class.java)
             startActivity(intent)
         }
         signUp.setOnClickListener {
-            val intent = Intent(this, sign_up_page::class.java)
+            val intent = Intent(this, SignUpPage::class.java)
             startActivity(intent)
         }
 
+        @SuppressLint("SetTextI18n")
         fun showLoadingDialog() {
             loadingDialog = Dialog(this)
             loadingDialog.setContentView(R.layout.loading_dialog)
@@ -59,7 +60,7 @@ class log_in_page : AppCompatActivity() {
             loadingDialog.dismiss()
         }
 
-        log_in.setOnClickListener {
+        logIn.setOnClickListener {
             val email = emailText.text.toString()
             val password = passwordText.text.toString()
 
@@ -89,28 +90,5 @@ class log_in_page : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun dumpToFirebase(){
-        // Assuming you have retrieved the data from SQLite tables
-        val db = DatabaseHelper(this)
-        val categories: List<Category> = db.getAllCategories()
-        val items: List<Item> = db.getAllItems()
-
-        // Get reference to Firebase Realtime Database
-        val databaseReference = FirebaseDatabase.getInstance().reference
-
-        // Write categories to Firebase
-        for (category in categories) {
-            val categoryRef = databaseReference.child("categories").child(category.id.toString())
-            categoryRef.setValue(category)
-        }
-
-        // Write items to Firebase
-        for (item in items) {
-            val itemRef = databaseReference.child("items").child(item.id.toString())
-            itemRef.setValue(item)
-        }
-
     }
 }

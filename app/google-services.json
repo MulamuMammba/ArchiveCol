@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "892728717338",
+    "firebase_url": "https://archivecol-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "archivecol",
     "storage_bucket": "archivecol.appspot.com"
   },

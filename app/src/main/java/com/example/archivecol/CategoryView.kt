@@ -24,6 +24,7 @@ import com.example.archivecol.database.Category
 import com.example.archivecol.database.DatabaseHelper
 import com.example.archivecol.database.Item
 import com.example.archivecol.database.ItemAdapter
+import com.example.archivecol.database.firebase.FirebaseSync
 import com.example.archivecol.ui.MainActivity
 
 class CategoryView : AppCompatActivity() {
@@ -52,7 +53,6 @@ class CategoryView : AppCompatActivity() {
 
     companion object {
         private const val PERMISSIONS_REQUEST_CODE = 1
-        private const val PICK_IMAGE_REQUEST_CODE = 2
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +63,7 @@ class CategoryView : AppCompatActivity() {
         recyclerView = findViewById(R.id.itemsView)
 
         // Retrieve category ID, name, and item list from intent
-        categoryId = intent.getIntExtra("category_id", -1)
+        categoryId = intent.getIntExtra("category_id", 0)
         categoryName = intent.getStringExtra("category_name").toString()
 
         // Set the title of the activity to the category name
@@ -115,11 +115,11 @@ class CategoryView : AppCompatActivity() {
             val categoryIdToDelete = categoryId
 
             val isDeleted = dbHelper.deleteCategory(categoryIdToDelete)
+            if (category != null) {
+                FirebaseSync.deleteCategory(category)
+            }
             if (isDeleted) {
-                // Deletion successful
-                // Refresh the RecyclerView
                 refreshView()
-
                 // Start the new activity
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
@@ -145,8 +145,6 @@ class CategoryView : AppCompatActivity() {
                 val categoryToUpdate = Category(categoryId, name, goal.toInt())
                 val isCategoryUpdated = dbHelper.updateCategory(categoryToUpdate)
                 if (isCategoryUpdated) {
-                    // Category update successful
-                    // Refresh the RecyclerView
                     refreshView()
                 } else {
                     // Category update failed
@@ -206,16 +204,11 @@ class CategoryView : AppCompatActivity() {
             val id = itemsList.size + 1
 
             if (itemName.isNotEmpty() && itemComment.isNotEmpty() && itemCount.isNotEmpty() && pictureAdded) {
-                val item = Item(
-                    itemsList.size + 1,
-                    3,
-                    itemName.toString(),
-                    itemComment,
-                    itemCount.toInt(),
-                    url
-                )
+                val item =
+                    Item(id, categoryId, itemName, itemComment, itemCount.toInt(), url, false)
                 itemsList.add(item)
                 val isItemAdded = dbHelper.addItem(item)
+                FirebaseSync.addItem(item)
                 refreshView()
 
                 if (isItemAdded) {

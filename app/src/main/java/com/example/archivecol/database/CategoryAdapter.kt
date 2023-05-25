@@ -1,5 +1,6 @@
 package com.example.archivecol.database
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -24,6 +25,7 @@ class CategoryAdapter(private val categories: List<Category>, param: (Any) -> Un
         return ViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val category = categories[position]
         holder.categoryName.text = category.name

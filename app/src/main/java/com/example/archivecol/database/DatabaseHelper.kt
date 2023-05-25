@@ -46,8 +46,6 @@ class DatabaseHelper(context: Context) :
                 "FOREIGN KEY($COLUMN_ITEM_CATEGORY_ID) REFERENCES $TABLE_CATEGORIES($COLUMN_CATEGORY_ID))"
         db.execSQL(CREATE_ITEMS_TABLE)
 
-        // Preload data
-        preloadData(db)
     }
 
     fun addCategory(category: Category): Long {
@@ -69,16 +67,12 @@ class DatabaseHelper(context: Context) :
     fun getAllCategories(): List<Category> {
         val categories = ArrayList<Category>()
 
-        // SQL query to retrieve all categories
         val selectQuery = "SELECT * FROM $TABLE_CATEGORIES"
 
-        // Get a readable database
         val db = this.readableDatabase
 
-        // Execute the query
         val cursor = db.rawQuery(selectQuery, null)
 
-        // Loop through the cursor and add categories to the list
         if (cursor.moveToFirst()) {
             do {
                 val category = Category(
@@ -90,11 +84,9 @@ class DatabaseHelper(context: Context) :
             } while (cursor.moveToNext())
         }
 
-        // Close the cursor and database
         cursor.close()
         db.close()
 
-        // Return the list of categories
         return categories
     }
 
@@ -102,16 +94,12 @@ class DatabaseHelper(context: Context) :
     fun getAllItems(): List<Item> {
         val items = ArrayList<Item>()
 
-        // SQL query to retrieve all items
         val selectQuery = "SELECT * FROM $TABLE_ITEMS"
 
-        // Get a readable database
         val db = this.readableDatabase
 
-        // Execute the query
         val cursor = db.rawQuery(selectQuery, null)
 
-        // Loop through the cursor and add items to the list
         if (cursor.moveToFirst()) {
             do {
                 val item = Item(
@@ -127,11 +115,9 @@ class DatabaseHelper(context: Context) :
             } while (cursor.moveToNext())
         }
 
-        // Close the cursor and database
         cursor.close()
         db.close()
 
-        // Return the list of items
         return items
     }
 
@@ -154,65 +140,10 @@ class DatabaseHelper(context: Context) :
         return id != -1L
     }
 
-
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $TABLE_CATEGORIES")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_ITEMS")
         onCreate(db)
-    }
-
-    private fun preloadData(db: SQLiteDatabase) {
-        // Preload categories
-        val categories = listOf(
-            Category(1, "Books", 10),
-            Category(2, "Movies", 5),
-            Category(3, "Music", 20)
-        )
-        for (category in categories) {
-            val values = ContentValues()
-            values.put(COLUMN_CATEGORY_ID, category.id)
-            values.put(COLUMN_CATEGORY_NAME, category.name)
-            values.put(COLUMN_CATEGORY_GOAL, category.goal)
-            db.insert(TABLE_CATEGORIES, null, values)
-        }
-
-        // Preload items
-        val items = listOf(
-            Item(1, 1, "The Great Gatsby", "A novel by F. Scott Fitzgerald", null, null, false),
-            Item(2, 1, "To Kill a Mockingbird", "A novel by Harper Lee", null, null, false),
-            Item(
-                3,
-                2,
-                "The Godfather",
-                "A film directed by Francis Ford Coppola",
-                null,
-                null,
-                false
-            ),
-            Item(
-                4,
-                2,
-                "The Shawshank Redemption",
-                "A film directed by Frank Darabont",
-                null,
-                null,
-                false
-            ),
-            Item(5, 3, "Thriller", "An album by Michael Jackson", null, null, false),
-            Item(6, 3, "The Beatles - 1", "An album by The Beatles", null, null, false)
-        )
-        for (item in items) {
-            val values = ContentValues()
-            values.put(COLUMN_ITEM_ID, item.id)
-            values.put(COLUMN_ITEM_CATEGORY_ID, item.categoryId)
-            values.put(COLUMN_ITEM_NAME, item.name)
-            values.put(COLUMN_ITEM_DESCRIPTION, item.description)
-            values.put(COLUMN_ITEM_COUNT, item.count)
-            values.put(COLUMN_ITEM_PHOTO_PATH, item.photoPath)
-            values.put(COLUMN_ITEM_IS_COLLECTED, item.isCollected)
-            db.insert(TABLE_ITEMS, null, values)
-        }
-
     }
 
     @SuppressLint("Range")
@@ -351,6 +282,14 @@ class DatabaseHelper(context: Context) :
         return rowsAffected > 0
     }
 
+    fun clearDatabase() {
+        fun clearDatabase() {
+            val db = this.writableDatabase
+            db.delete(TABLE_ITEMS, null, null)
+            db.delete(TABLE_CATEGORIES, null, null)
+            db.close()
+        }
 
+    }
 }
 

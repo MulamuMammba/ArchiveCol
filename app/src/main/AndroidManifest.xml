@@ -19,13 +19,13 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".item_edit"
+            android:name=".ItemEdit"
             android:exported="false" />
         <activity
             android:name=".CategoryView"
             android:exported="true" />
         <activity
-            android:name=".ui.log_in_page"
+            android:name=".ui.LogInPage"
             android:exported="true"
             android:theme="@style/Theme.ArchiveCol">
             <intent-filter>
@@ -38,7 +38,7 @@
             android:name=".ui.forgot_password"
             android:exported="true" />
         <activity
-            android:name=".ui.sign_up_page"
+            android:name=".ui.SignUpPage"
             android:exported="true" />
         <activity
             android:name=".ui.MainActivity"
