@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.log_in_page"
-    android:background="@color/tertiary_color">
+    android:background="@color/tertiary_color"
+    tools:context=".ui.LogInPage">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -36,7 +36,7 @@
         android:id="@+id/email_reset"
         android:layout_width="350dp"
         android:layout_height="60dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="150dp"
         android:autofillHints=""
         android:background="@drawable/rounded_text_input"
         android:drawablePadding="10dp"
@@ -108,9 +108,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
+            android:autoLink="web"
             android:text="@string/sign_up"
             android:textColor="@color/black"
-            android:textStyle="bold"
-            android:autoLink="web"/>
+            android:textStyle="bold" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="69dp"
+        android:layout_marginBottom="40dp"
+        android:text="User Name"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/welcome_back"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

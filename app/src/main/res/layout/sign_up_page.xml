@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/tertiary_color"
-    tools:context=".ui.sign_up_page">
+    tools:context=".ui.SignUpPage">
 
     <EditText
         android:id="@+id/email_reset"
@@ -21,7 +21,7 @@
         android:drawableTint="@color/Dark"
         android:ems="10"
         android:hint="@string/email"
-        android:inputType="text"
+        android:inputType="text|textEmailAddress"
         android:paddingHorizontal="20dp"
         android:textColor="#000000"
         android:textColorHint="#838383"

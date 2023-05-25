@@ -16,6 +16,7 @@ import com.example.archivecol.R
 import com.example.archivecol.database.Category
 import com.example.archivecol.database.CategoryAdapter
 import com.example.archivecol.database.DatabaseHelper
+import com.example.archivecol.database.firebase.FirebaseSync
 
 class MainActivity : AppCompatActivity() {
 
@@ -98,6 +99,7 @@ class MainActivity : AppCompatActivity() {
                 val category = Category(categoryList.size + 1, name, goalNum)
                 categoryList.add(category)
                 dbHelper.addCategory(category)
+                FirebaseSync.addCategory(category)
                 refreshView()
                 Toast.makeText(
                     view.context,

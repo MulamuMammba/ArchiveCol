@@ -46,8 +46,6 @@ class DatabaseHelper(context: Context) :
                 "FOREIGN KEY($COLUMN_ITEM_CATEGORY_ID) REFERENCES $TABLE_CATEGORIES($COLUMN_CATEGORY_ID))"
         db.execSQL(CREATE_ITEMS_TABLE)
 
-        // Preload data
-        preloadData(db)
     }
 
     fun addCategory(category: Category): Long {
@@ -63,6 +61,64 @@ class DatabaseHelper(context: Context) :
         db.close()
 
         return id
+    }
+
+    @SuppressLint("Range")
+    fun getAllCategories(): List<Category> {
+        val categories = ArrayList<Category>()
+
+        val selectQuery = "SELECT * FROM $TABLE_CATEGORIES"
+
+        val db = this.readableDatabase
+
+        val cursor = db.rawQuery(selectQuery, null)
+
+        if (cursor.moveToFirst()) {
+            do {
+                val category = Category(
+                    id = cursor.getInt(cursor.getColumnIndex(COLUMN_CATEGORY_ID)),
+                    name = cursor.getString(cursor.getColumnIndex(COLUMN_CATEGORY_NAME)),
+                    goal = cursor.getInt(cursor.getColumnIndex(COLUMN_CATEGORY_GOAL))
+                )
+                categories.add(category)
+            } while (cursor.moveToNext())
+        }
+
+        cursor.close()
+        db.close()
+
+        return categories
+    }
+
+    @SuppressLint("Range")
+    fun getAllItems(): List<Item> {
+        val items = ArrayList<Item>()
+
+        val selectQuery = "SELECT * FROM $TABLE_ITEMS"
+
+        val db = this.readableDatabase
+
+        val cursor = db.rawQuery(selectQuery, null)
+
+        if (cursor.moveToFirst()) {
+            do {
+                val item = Item(
+                    id = cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_ID)),
+                    categoryId = cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_CATEGORY_ID)),
+                    name = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_NAME)),
+                    description = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_DESCRIPTION)),
+                    count = cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_COUNT)),
+                    photoPath = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM_PHOTO_PATH)),
+                    isCollected = cursor.getInt(cursor.getColumnIndex(COLUMN_ITEM_IS_COLLECTED)) == 1
+                )
+                items.add(item)
+            } while (cursor.moveToNext())
+        }
+
+        cursor.close()
+        db.close()
+
+        return items
     }
 
     fun addItem(item: Item): Boolean {
@@ -84,65 +140,10 @@ class DatabaseHelper(context: Context) :
         return id != -1L
     }
 
-
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $TABLE_CATEGORIES")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_ITEMS")
         onCreate(db)
-    }
-
-    private fun preloadData(db: SQLiteDatabase) {
-        // Preload categories
-        val categories = listOf(
-            Category(1, "Books", 10),
-            Category(2, "Movies", 5),
-            Category(3, "Music", 20)
-        )
-        for (category in categories) {
-            val values = ContentValues()
-            values.put(COLUMN_CATEGORY_ID, category.id)
-            values.put(COLUMN_CATEGORY_NAME, category.name)
-            values.put(COLUMN_CATEGORY_GOAL, category.goal)
-            db.insert(TABLE_CATEGORIES, null, values)
-        }
-
-        // Preload items
-        val items = listOf(
-            Item(1, 1, "The Great Gatsby", "A novel by F. Scott Fitzgerald", null, null, false),
-            Item(2, 1, "To Kill a Mockingbird", "A novel by Harper Lee", null, null, false),
-            Item(
-                3,
-                2,
-                "The Godfather",
-                "A film directed by Francis Ford Coppola",
-                null,
-                null,
-                false
-            ),
-            Item(
-                4,
-                2,
-                "The Shawshank Redemption",
-                "A film directed by Frank Darabont",
-                null,
-                null,
-                false
-            ),
-            Item(5, 3, "Thriller", "An album by Michael Jackson", null, null, false),
-            Item(6, 3, "The Beatles - 1", "An album by The Beatles", null, null, false)
-        )
-        for (item in items) {
-            val values = ContentValues()
-            values.put(COLUMN_ITEM_ID, item.id)
-            values.put(COLUMN_ITEM_CATEGORY_ID, item.categoryId)
-            values.put(COLUMN_ITEM_NAME, item.name)
-            values.put(COLUMN_ITEM_DESCRIPTION, item.description)
-            values.put(COLUMN_ITEM_COUNT, item.count)
-            values.put(COLUMN_ITEM_PHOTO_PATH, item.photoPath)
-            values.put(COLUMN_ITEM_IS_COLLECTED, item.isCollected)
-            db.insert(TABLE_ITEMS, null, values)
-        }
-
     }
 
     @SuppressLint("Range")
@@ -281,6 +282,14 @@ class DatabaseHelper(context: Context) :
         return rowsAffected > 0
     }
 
+    fun clearDatabase() {
+        fun clearDatabase() {
+            val db = this.writableDatabase
+            db.delete(TABLE_ITEMS, null, null)
+            db.delete(TABLE_CATEGORIES, null, null)
+            db.close()
+        }
 
+    }
 }
 
