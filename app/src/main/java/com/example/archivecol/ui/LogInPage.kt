@@ -18,15 +18,21 @@ import com.google.firebase.ktx.Firebase
 class LogInPage : AppCompatActivity() {
 
     private lateinit var loadingDialog: Dialog
-    private val emailText: TextView = findViewById(R.id.email)
-    private val passwordText: TextView = findViewById(R.id.password)
-    private val logIn: Button = findViewById(R.id.sign_in_btn)
-    private val forgotPassword: TextView = findViewById(R.id.reset_password_btn)
-    private val signUp: TextView = findViewById(R.id.sign_up_btn)
+    private lateinit var emailText: TextView
+    private lateinit var passwordText: TextView
+    private lateinit var logIn: Button
+    private lateinit var forgotPassword: TextView
+    private lateinit var signUp: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.log_in_page)
+
+        emailText = findViewById(R.id.email_reset)
+        passwordText= findViewById(R.id.password)
+        logIn = findViewById(R.id.sign_in_btn)
+        forgotPassword = findViewById(R.id.reset_password_btn)
+        signUp = findViewById(R.id.sign_up_btn)
 
         val userName: TextView = findViewById(R.id.name)
         userName.text = User.getUserName(applicationContext)
