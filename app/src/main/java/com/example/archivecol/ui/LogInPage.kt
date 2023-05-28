@@ -9,9 +9,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.archivecol.R
+import com.example.archivecol.database.firebase.FirebaseSync
 import com.example.archivecol.database.sqlite.DatabaseHelper
 import com.example.archivecol.model.User
-import com.example.archivecol.database.firebase.FirebaseSync
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -28,8 +28,8 @@ class LogInPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.log_in_page)
 
-        emailText = findViewById(R.id.email_reset)
-        passwordText= findViewById(R.id.password)
+        emailText = findViewById(R.id.new_email)
+        passwordText = findViewById(R.id.password)
         logIn = findViewById(R.id.sign_in_btn)
         forgotPassword = findViewById(R.id.reset_password_btn)
         signUp = findViewById(R.id.sign_up_btn)

@@ -6,8 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -21,11 +19,12 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.archivecol.R
-import com.example.archivecol.model.Category
-import com.example.archivecol.database.sqlite.DatabaseHelper
-import com.example.archivecol.model.Item
 import com.example.archivecol.database.adapters.ItemAdapter
 import com.example.archivecol.database.firebase.FirebaseSync
+import com.example.archivecol.database.sqlite.DatabaseHelper
+import com.example.archivecol.model.Achievements
+import com.example.archivecol.model.Category
+import com.example.archivecol.model.Item
 
 class CategoryView : AppCompatActivity() {
 
@@ -42,7 +41,8 @@ class CategoryView : AppCompatActivity() {
         Manifest.permission.READ_EXTERNAL_STORAGE
     )
 
-    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+    private val pickImageLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             // Process the selected image URI here
             uri?.let {
                 imageUrl = it.toString()
@@ -115,7 +115,7 @@ class CategoryView : AppCompatActivity() {
 
             val isDeleted = dbHelper.deleteCategory(categoryIdToDelete)
             if (category != null) {
-                FirebaseSync.deleteCategory(category)
+                FirebaseSync.deleteCategory(this, category.id)
             }
             if (isDeleted) {
                 refreshView()
@@ -177,7 +177,7 @@ class CategoryView : AppCompatActivity() {
         val name = dialogView.findViewById<EditText>(R.id.item_input)
         val comment = dialogView.findViewById<EditText>(R.id.comment_input)
         val count = dialogView.findViewById<EditText>(R.id.count_input)
-        var date = dialogView.findViewById<EditText>(R.id.date_input)
+        //var date = dialogView.findViewById<EditText>(R.id.date_input)
         val imageButton = dialogView.findViewById<Button>(R.id.imageButton)
 
         //image
@@ -187,8 +187,7 @@ class CategoryView : AppCompatActivity() {
                 requestPermissions()
             } else {
                 // Create an intent to pick an image from the gallery
-                val intent =
-                    Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                //  val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
                 // Start the activity to pick an image
                 pickImageLauncher.launch("image/*")
             }
@@ -210,7 +209,10 @@ class CategoryView : AppCompatActivity() {
                 FirebaseSync.addItem(item)
                 FirebaseSync.refreshDatabase(dbHelper)
                 refreshView()
-                Toast.makeText(view.context, "Successfully added ${item.name}", Toast.LENGTH_SHORT).show()
+                alertDialog.dismiss()
+                Achievements.itemCreated(this)
+                Toast.makeText(view.context, "Successfully added ${item.name}", Toast.LENGTH_SHORT)
+                    .show()
 
             }
         }
