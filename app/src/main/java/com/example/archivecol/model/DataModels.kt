@@ -35,5 +35,6 @@ class User {
             editor.putString("username", username)
             editor.apply()
         }
+
     }
 }

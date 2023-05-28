@@ -7,15 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.archivecol.R
-import com.example.archivecol.model.Category
 import com.example.archivecol.database.adapters.CategoryAdapter
-import com.example.archivecol.database.sqlite.DatabaseHelper
 import com.example.archivecol.database.firebase.FirebaseSync
+import com.example.archivecol.database.sqlite.DatabaseHelper
+import com.example.archivecol.model.Category
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,6 +27,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val achievement: ImageButton = findViewById(R.id.achievementButton)
+
+        achievement.setOnClickListener {
+            startActivity(Intent(this, AchievementsScreen::class.java))
+        }
+
         // Get categories from the database
         val dbHelper = DatabaseHelper(this)
         categoryList = dbHelper.getAllCategories() as MutableList<Category>
@@ -33,13 +40,15 @@ class MainActivity : AppCompatActivity() {
         // Set up the RecyclerView
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = CategoryAdapter(categoryList) { category -> onCategoryItemClick(category as Category) }
+        val adapter =
+            CategoryAdapter(categoryList) { category -> onCategoryItemClick(category as Category) }
         recyclerView.adapter = adapter
 
     }
 
     private fun refreshView() {
-        val adapter = CategoryAdapter(categoryList) { category -> onCategoryItemClick(category as Category) }
+        val adapter =
+            CategoryAdapter(categoryList) { category -> onCategoryItemClick(category as Category) }
         recyclerView.adapter = adapter
     }
 

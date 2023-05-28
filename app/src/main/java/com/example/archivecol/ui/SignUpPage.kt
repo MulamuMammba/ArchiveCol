@@ -21,7 +21,7 @@ class SignUpPage : AppCompatActivity() {
         title = "Sign Up"
 
         // Initialize the views
-        val emailText: EditText = findViewById(R.id.email_reset)
+        val emailText: EditText = findViewById(R.id.new_email)
         val passwordText: EditText = findViewById(R.id.password)
         val signUpButton: Button = findViewById(R.id.sign_up_btn)
         val firstName: EditText = findViewById(R.id.first_name)

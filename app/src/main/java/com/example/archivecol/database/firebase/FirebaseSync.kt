@@ -1,7 +1,8 @@
 package com.example.archivecol.database.firebase
 
-import com.example.archivecol.model.Category
+import android.content.Context
 import com.example.archivecol.database.sqlite.DatabaseHelper
+import com.example.archivecol.model.Category
 import com.example.archivecol.model.Item
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -32,28 +33,36 @@ class FirebaseSync {
             itemRef.child(item.id.toString()).removeValue()
         }
 
-        fun deleteCategory(category: Category) {
-            //Delete Category
-            val categoryRef = FirebaseDatabase.getInstance().getReference("categories")
-            categoryRef.child(category.id.toString()).removeValue()
+        fun deleteCategory(context: Context, categoryId: Int) {
+            val db = DatabaseHelper(context)
+            val databaseReference = FirebaseDatabase.getInstance().reference
 
-            //Delete Its Children
-            val itemRef = FirebaseDatabase.getInstance().getReference("items")
-            itemRef.orderByChild("categoryId").equalTo(category.id.toString())
-                .addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        for (itemSnapshot in dataSnapshot.children) {
-                            val itemId = itemSnapshot.key
-                            itemSnapshot.ref.removeValue()
+            // Retrieve items associated with the category from Firebase
+            val itemsRef = databaseReference.child("items")
+            val itemsQuery = itemsRef.orderByChild("categoryId").equalTo(categoryId.toDouble())
+            itemsQuery.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    for (itemSnapshot in dataSnapshot.children) {
+                        val itemId = itemSnapshot.key
+                        itemId?.let {
+                            // Delete the item from Firebase
+                            itemsRef.child(itemId).removeValue()
                         }
                     }
 
-                    override fun onCancelled(p0: DatabaseError) {
-                        //Empty
-                    }
+                    // Delete the category from Firebase
+                    databaseReference.child("categories").child(categoryId.toString()).removeValue()
 
-                })
+                    // Delete the category locally
+                    db.deleteCategory(categoryId)
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle onCancelled if needed
+                }
+            })
         }
+
 
         fun refreshDatabase(dbHelper: DatabaseHelper) {
             val firebaseRef = FirebaseDatabase.getInstance().reference

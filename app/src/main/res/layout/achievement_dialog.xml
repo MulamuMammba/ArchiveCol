@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="360dp"
+    android:background="@drawable/alert_background"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/trophyImageView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/medal_bronze" />
+
+    <TextView
+        android:id="@+id/rankTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:hint="This is a test"
+        android:padding="16dp"
+        android:text=""
+        android:textAlignment="center"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/congratsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="Congratulations!"
+        android:textSize="18sp" />
+
+</LinearLayout>

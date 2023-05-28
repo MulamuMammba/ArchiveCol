@@ -11,18 +11,30 @@
         android:id="@+id/addCategoryButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="79dp"
         android:layout_marginBottom="604dp"
+        android:background="@drawable/rounded_button"
+        android:elevation="8dp"
+        android:fontFamily="sans-serif-black"
         android:onClick="addCategory"
         android:text="@string/add_category"
         android:textColor="@color/tertiary_color"
         android:textSize="20sp"
-        android:fontFamily="sans-serif-black"
-        android:background="@drawable/rounded_button"
-        android:elevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/achievementButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/rounded_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/achievement_icon" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
