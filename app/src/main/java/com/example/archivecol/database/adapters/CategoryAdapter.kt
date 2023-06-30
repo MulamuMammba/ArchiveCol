@@ -8,11 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.archivecol.ui.CategoryView
 import com.example.archivecol.R
 import com.example.archivecol.model.Category
+import com.example.archivecol.ui.CategoryView
 
-class CategoryAdapter(private val categories: List<Category>, param: (Any) -> Unit) :
+class CategoryAdapter(private val categories: List<Category>) :
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -30,12 +30,12 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp"
         android:background="@drawable/rounded_text_input"
-        android:gravity="center"
-        android:onClick="openEditDialog"
-        android:hint="Category Title"
-        android:textSize="30sp"
-        android:textColor="@color/black"
         android:fontFamily="monospace"
+        android:gravity="center"
+        android:hint="Category Title"
+        android:onClick="openEditDialog"
+        android:textColor="@color/black"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/itemsView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -54,4 +54,35 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categoryTitle" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/addItems"
+        app:layout_constraintTop_toBottomOf="@+id/categoryTitle">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="11dp"
+            android:layout_weight="1"
+            android:paddingEnd="30dp"
+            android:text="Progress : " />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="17dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="7dp"
+            android:layout_weight="2"
+            android:paddingEnd="30dp" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

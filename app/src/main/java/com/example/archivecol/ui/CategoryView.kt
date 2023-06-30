@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -69,9 +70,43 @@ class CategoryView : AppCompatActivity() {
         val title = findViewById<TextView>(R.id.categoryTitle)
         title.text = categoryName
 
+        val progressBar: ProgressBar = findViewById(R.id.progressBar)
+
         // Get the items for the category from the database
         itemsList = dbHelper.getItemsForCategory(categoryId) as MutableList<Item>
+        val category = dbHelper.getCategoryById(categoryId)
+        if (category != null) {
+            if (category.goal != 0) {
+                val progress = itemsList.size * 100 / category.goal
+                progressBar.progress = progress
+                progressBar.visibility = View.VISIBLE
 
+                if (progress < 50) {
+                    progressBar.progressDrawable.setTint(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.progressLow
+                        )
+                    )
+                } else if (progress < 80) {
+                    progressBar.progressDrawable.setTint(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.progressMedium
+                        )
+                    )
+                } else {
+                    progressBar.progressDrawable.setTint(
+                        ContextCompat.getColor(
+                            this,
+                            R.color.progressHigh
+                        )
+                    )
+                }
+            } else {
+                progressBar.visibility = View.GONE
+            }
+        }
         // Display list of items
         itemAdapter = ItemAdapter(this, itemsList)
         val layoutManager = LinearLayoutManager(this)
@@ -127,13 +162,9 @@ class CategoryView : AppCompatActivity() {
                 alertDialog.dismiss()
                 this.finish()
 
-            } else {
-                // Deletion failed
-                // Handle the error
             }
         }
 
-        //update the category name and goal
         updateButton.setOnClickListener {
             val name = newCategoryName.text.toString().trim()
             val goal = newCategoryGoal.text.toString().trim()

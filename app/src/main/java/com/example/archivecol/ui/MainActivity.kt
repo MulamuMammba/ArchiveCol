@@ -40,15 +40,13 @@ class MainActivity : AppCompatActivity() {
         // Set up the RecyclerView
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter =
-            CategoryAdapter(categoryList) { category -> onCategoryItemClick(category as Category) }
+        val adapter = CategoryAdapter(categoryList)
         recyclerView.adapter = adapter
 
     }
 
     private fun refreshView() {
-        val adapter =
-            CategoryAdapter(categoryList) { category -> onCategoryItemClick(category as Category) }
+        val adapter = CategoryAdapter(categoryList)
         recyclerView.adapter = adapter
     }
 

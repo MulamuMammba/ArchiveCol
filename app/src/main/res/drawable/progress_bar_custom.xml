@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Define the gradient shape -->
+    <item>
+        <shape>
+            <gradient
+                android:type="linear"
+                android:startColor="#0A2214"
+                android:centerColor="#FFFF00"
+                android:endColor="#00FF00"
+                android:angle="0" />
+        </shape>
+    </item>
+
+    <!-- Define the clip shape to show progress -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <gradient
+                    android:type="linear"
+                    android:startColor="#00FF00"
+                    android:endColor="#00FF00"
+                    android:angle="0" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

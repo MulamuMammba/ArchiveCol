@@ -40,7 +40,7 @@ class LogInPage : AppCompatActivity() {
         login()
 
         forgotPassword.setOnClickListener {
-            val intent = Intent(this, forgotPassword::class.java)
+            val intent = Intent(this, ForgotPassword::class.java)
             startActivity(intent)
         }
         signUp.setOnClickListener {

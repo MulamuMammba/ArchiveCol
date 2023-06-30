@@ -21,4 +21,9 @@
     <color name="button_background_color">#7286D3</color>
     <color name="pastel_green">#A2E8A2</color>
 
+    <color name="progressLow">#F42F2F</color>
+    <color name="progressMedium">#CAAC11</color>
+    <color name="progressHigh">#2AB162</color>
+
+
 </resources>
